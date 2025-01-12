@@ -9,7 +9,7 @@
         <button> Refresh </button>
         <router-link to="/register"> Register as Coach</router-link>
       </div>
-      LIST OF COACHES
+      LIST OF COACHE
       <ul v-if="hasCoaches">
         <coach-item v-for="coach in filteredCoaches" :key="coach.id" :coach="coach">
         </coach-item>
