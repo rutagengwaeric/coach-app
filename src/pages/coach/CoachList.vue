@@ -1,18 +1,21 @@
 <template>
   <section>
-    <div class="controls">
-      FILTER
-    </div>
+    FILTER
   </section>
 
   <section>
-    LIST OF COACHES
-    <ul v-if="hasCoaches">
-      <coach-item v-for="coach in filteredCoaches" :key="coach.id" :coach="coach">
-
-      </coach-item>
-    </ul>
-    <p v-else>No coaches found</p>
+    <base-card>
+      <div class="controls">
+        <button> Refresh </button>
+        <router-link to="/register"> Register as Coach</router-link>
+      </div>
+      LIST OF COACHES
+      <ul v-if="hasCoaches">
+        <coach-item v-for="coach in filteredCoaches" :key="coach.id" :coach="coach">
+        </coach-item>
+      </ul>
+      <p v-else>No coaches found</p>
+    </base-card>
   </section>
 </template>
 
@@ -24,7 +27,7 @@ export default {
   components: {
     CoachItem
   }
-,
+  ,
   computed: {
     filteredCoaches() {
       return this.$store.getters['coaches/coaches'];
@@ -42,6 +45,7 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+
 }
 
 .controls {

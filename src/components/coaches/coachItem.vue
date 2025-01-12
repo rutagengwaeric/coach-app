@@ -7,7 +7,7 @@
     </div>
     <div class="actions">
       <router-link to="/coaches/c1/contact">Contact</router-link>
-      <router-link to="/coaches/c1">View <Details></Details></router-link>
+      <router-link to="/coaches/c1">View Details</router-link>
     </div>
   </li>
 </template>
