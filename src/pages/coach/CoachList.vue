@@ -1,6 +1,6 @@
 <template>
   <section>
-    <coach-filter @change-filter="setFilters"></coach-filter>
+    <coach-filter @change-filter="setFilter"></coach-filter>
   </section>
     
   <section>
@@ -11,7 +11,7 @@
       </div>
       <ul v-if="hasCoaches">
         
-        <coach-item v-for="coach in filteredCoaches" :key="coach.id"
+        <coach-item v-for="coach in filteredCoaches" :key="coach.id" 
           :id="coach.id"
           :first-name="coach.firstName"
           :last-name="coach.lastName"
@@ -34,16 +34,16 @@ export default {
     CoachItem,
     CoachFilter
   },
-  
-  data() {
-    return {
-      activeFilters: {
-        frontend: true,
-        backend: true,
-        career: true
-      }
-    };
-  },
+  data(){
+     return {
+       activeFilters: {
+          frontend: true,
+          backend: true,
+          career: true
+       }
+     }
+  }
+  ,
   computed: {
     filteredCoaches() {
       const coaches = this.$store.getters['coaches/coaches'];
@@ -62,13 +62,16 @@ export default {
     },
     hasCoaches() {
       return this.$store.getters['coaches/hasCoaches'];
-    },
-  },
-  methods: {
-    setFilters(updatedFilters) {
-      this.activeFilters = updatedFilters;
     }
-  }
+  },
+  methods : {
+    setFilter(updatedFilters) {
+      // console.log(updatedFilters);
+      // console.log(this.activeFilters);
+      this.activeFilters = updatedFilters;
+
+    }
+  } 
 }
 
 </script>
