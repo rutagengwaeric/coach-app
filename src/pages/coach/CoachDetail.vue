@@ -4,6 +4,7 @@
       <h2> {{ fullName }} </h2>
       <h3> {{ rate }}/hours</h3>
     </base-card>
+    <router-view></router-view>
   </section>
   <section>
     <base-card>
@@ -11,6 +12,7 @@
         <h2> Intersted? Reach out now!</h2>
         <base-button link :to="contactLink">Contact Coach</base-button>
       </header>
+
     </base-card>
   </section>
   <section>
@@ -26,7 +28,9 @@
 export default {
   props: ['id'],
   data() {
-    selectedCoach: null
+    return {
+      selectedCoach: null
+    }
   },
   created() {
     this.selectedCoach = this.$store.getters['coaches/coaches'].find(coach => coach.id === this.id);
@@ -36,8 +40,8 @@ export default {
       return this.selectedCoach.firstName + ' ' + this.selectedCoach.lastName;
     },
     contactLink() {
-      return this.$route.path + '/' + this.id + '/contact';
-    },
+      return this.$route.path + '/contact';
+    },  
     rate() {
       return this.selectedCoach.hourlyRate;
     }
