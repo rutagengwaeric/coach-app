@@ -2,20 +2,19 @@
   <section>
     FILTER
   </section>
-
+    
   <section>
     <base-card>
       <div class="controls">
-        <button> Refresh </button>
-        <router-link to="/register"> Register as Coach</router-link>
+        <base-button class="outline"> Refresh </base-button>
+        <base-button link to="/register"> Register as Coach</base-button>
       </div>
-      LIST OF COACHE
       <ul v-if="hasCoaches">
         <coach-item v-for="coach in filteredCoaches" :key="coach.id" :coach="coach">
         </coach-item>
       </ul>
       <p v-else>No coaches found</p>
-    </base-card>
+      </base-card>
   </section>
 </template>
 

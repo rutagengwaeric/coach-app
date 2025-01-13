@@ -1,13 +1,13 @@
 <template>
   <li>
-    <h3> {{ coach.firstName }} </h3>
+    <h3> {{ fullName }} </h3>
     <h4> {{ coach.hourlyRate }}/hour</h4>
     <div>
-      <span v-for="area in coach.areas" :key="area"> {{ area }}, </span>
+    <base-badge v-for="area in coach.areas" :key="area" :type="area" :title="area"></base-badge>
     </div>
     <div class="actions">
-      <router-link to="/coaches/c1/contact">Contact</router-link>
-      <router-link to="/coaches/c1">View Details</router-link>
+      <base-button class="outline" link :to="CoachLinkDetails">Contact</base-button>
+      <base-button link :to="CoachLinkContact">View Details</base-button>
     </div>
   </li>
 </template>
@@ -16,6 +16,21 @@
 export default{
 
 props: ['coach'],
+
+computed: {
+    fullName(){
+      return this.coach.firstName + ' ' + this.coach.lastName;
+    },
+   CoachLinkDetails(){
+    return '/coaches/' + this.coach.id;
+   },
+    CoachLinkContact(){
+      return '/coaches/' + this.coach.id + '/contact';
+    }
+
+  }
+
+
 
 }
 </script>
