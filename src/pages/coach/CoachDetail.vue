@@ -7,12 +7,16 @@
   </section>
   <section>
     <base-card>
-    <header>
-       <h2> Intersted? Reach out now!</h2>
-       <base-button link :to="contactLink">Contact Coach</base-button>
-    </header>
-    <base-badge v-for="area in areas" :key="area" :type="area" :title="area"></base-badge>
-    <p> {{ description }}</p>
+      <header>
+        <h2> Intersted? Reach out now!</h2>
+        <base-button link :to="contactLink">Contact Coach</base-button>
+      </header>
+    </base-card>
+  </section>
+  <section>
+    <base-card>
+      <base-badge v-for="area in areas" :key="area" :type="area" :title="area"></base-badge>
+      <p> {{ description }}</p>
     </base-card>
   </section>
 </template>
@@ -21,27 +25,27 @@
 
 export default {
   props: ['id'],
-  data(){
-      selectedCoach : null    
+  data() {
+    selectedCoach: null
   },
-  created(){
+  created() {
     this.selectedCoach = this.$store.getters['coaches/coaches'].find(coach => coach.id === this.id);
   },
   computed: {
-    fullName(){
+    fullName() {
       return this.selectedCoach.firstName + ' ' + this.selectedCoach.lastName;
     },
-    contactLink(){
+    contactLink() {
       return this.$route.path + '/' + this.id + '/contact';
     },
-    rate(){
+    rate() {
       return this.selectedCoach.hourlyRate;
     }
     ,
-    areas(){
+    areas() {
       return this.selectedCoach.areas;
     },
-    description(){
+    description() {
       return this.selectedCoach.description;
     }
   }
