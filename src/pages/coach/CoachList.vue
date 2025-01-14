@@ -6,7 +6,7 @@
   <section>
     <base-card>
       <div class="controls">
-        <base-button class="outline"> Refresh </base-button>
+        <base-button class="outline" @click="refreshFilter"> Refresh </base-button>
         <base-button link to="/register"> Register as Coach</base-button>
       </div>
       <ul v-if="hasCoaches">
@@ -40,7 +40,8 @@ export default {
           frontend: true,
           backend: true,
           career: true
-       }
+       },
+       refreshChanger: false
      }
   }
   ,
@@ -66,9 +67,14 @@ export default {
   },
   methods : {
     setFilter(updatedFilters) {
-      // console.log(updatedFilters);
-      // console.log(this.activeFilters);
       this.activeFilters = updatedFilters;
+    },
+    refreshFilter(){
+      this.activeFilters = {
+        frontend: true,
+        backend: true,
+        career: true
+      }
 
     }
   } 

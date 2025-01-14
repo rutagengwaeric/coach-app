@@ -1,10 +1,10 @@
 <template>
-        <router-view></router-view>
+  <router-view></router-view>
   <li>
     <h3> {{ fullName }} </h3>
     <h4> {{ rate }}/hour</h4>
     <div>
-    <base-badge v-for="area in areas" :key="area" :type="area" :title="area"></base-badge>
+      <base-badge v-for="area in areas" :key="area" :type="area" :title="area"></base-badge>
     </div>
     <div class="actions">
       <base-button class="outline" link :to="CoachLinkContact">Contact</base-button>
@@ -14,17 +14,17 @@
 </template>
 
 <script>
-export default{
-props: ['firstName', 'lastName', 'rate', 'areas', 'id'],
+export default {
+  props: ['firstName', 'lastName', 'rate', 'areas', 'id'],
 
-computed: {
-    fullName(){
+  computed: {
+    fullName() {
       return this.firstName + ' ' + this.lastName;
     },
-   CoachLinkDetails(){
-    return '/coaches/' + this.id;
-   },
-    CoachLinkContact(){
+    CoachLinkDetails() {
+      return '/coaches/' + this.id;
+    },
+    CoachLinkContact() {
       return '/coaches/' + this.id + '/contact';
     }
 
