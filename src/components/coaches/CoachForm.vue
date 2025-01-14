@@ -14,7 +14,7 @@
         </div> 
         <div class="form-control">
             <label for="rate"> Hourly Rate </label>
-            <input type="" id="rate" v-model.trim="rate"  />
+            <input type="number" id="rate" v-model.number="rate"  />
         </div> 
         <div class="form-control">
             <h3> Areas of Expertise </h3>
@@ -37,6 +37,7 @@
 
 <script>
 export default {
+    emits: ['save-data'],
     data() {
         return {
             firstName: '',
@@ -49,13 +50,13 @@ export default {
     methods : {
         submitData() {
             const coachData = {
-                firstName: this.firstName,
-                lastName: this.lastName,
-                description: this.description,
+                first: this.firstName,
+                last: this.lastName,
+                desc: this.description,
                 rate: this.rate,
                 areas: this.areas
             }
-            console.log(coachData);
+        this.$emit('save-data',coachData)
         }
     }
 }
