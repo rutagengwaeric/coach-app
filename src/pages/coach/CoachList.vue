@@ -1,26 +1,27 @@
 <template>
+  <base-dialog :show="!!error" title="An error occurred" @close="error = null">
+    <p> {{ error }} </p>
+  </base-dialog>
   <section>
     <coach-filter @change-filter="setFilter"></coach-filter>
   </section>
-    
+
   <section>
     <base-card>
       <div class="controls">
-        <base-button class="outline" @click="refreshFilter"> Refresh </base-button>
-        <base-button v-if="!isCoach" link to="/register"> Register as Coach</base-button>
+        <base-button class="outline" @click="loadCoaches"> Refresh </base-button>
+        <base-button v-if="!isCoach && !isLoading" link to="/register"> Register as Coach</base-button>
       </div>
-      <ul v-if="hasCoaches">
-        
-        <coach-item v-for="coach in filteredCoaches" :key="coach.id" 
-          :id="coach.id"
-          :first-name="coach.firstName"
-          :last-name="coach.lastName"
-          :rate="coach.hourlyRate"
-          :areas="coach.areas">
+      <div v-if="isLoading">
+        <base-spinner></base-spinner>
+      </div>
+      <ul v-else-if="hasCoaches">
+        <coach-item v-for="coach in filteredCoaches" :key="coach.id" :id="coach.id" :first-name="coach.firstName"
+          :last-name="coach.lastName" :rate="coach.hourlyRate" :areas="coach.areas">
         </coach-item>
       </ul>
       <p v-else>No coaches found</p>
-      </base-card>
+    </base-card>
   </section>
 </template>
 
@@ -32,19 +33,23 @@ import CoachFilter from '@/components/coaches/CoachFilter.vue';
 export default {
   components: {
     CoachItem,
-    CoachFilter
+    CoachFilter,
+
   },
-  data(){
-     return {
-       activeFilters: {
-          frontend: true,
-          backend: true,
-          career: true
-       },
-       refreshChanger: false
-     }
-  }
-  ,
+  data() {
+    return {
+      isLoading: false,
+      error: null,
+      activeFilters: {
+        frontend: true,
+        backend: true,
+        career: true
+      },
+    }
+  },
+  created() {
+    this.loadCoaches();
+  },
   computed: {
     isCoach() {
       return this.$store.getters['coaches/isCoach'];
@@ -65,27 +70,32 @@ export default {
       });
     },
     hasCoaches() {
-      return this.$store.getters['coaches/hasCoaches'];
-    }
+      return !this.isLoading && this.$store.getters['coaches/hasCoaches'];
+    },
+
   },
-  methods : {
+  methods: {
     setFilter(updatedFilters) {
       this.activeFilters = updatedFilters;
     },
-    refreshFilter(){
-      this.activeFilters = {
-        frontend: true,
-        backend: true,
-        career: true
+    async loadCoaches() {
+      try {
+        this.isLoading = true;
+        await this.$store.dispatch('coaches/loadCoaches');
+        this.isLoading = false;
+      } catch (error) {
+        this.error = error.message || 'An error occurred';
+        // this.isLoading = false;
       }
-
     }
-  } 
+
+
+  }
 }
 
 </script>
 
-<style>
+<style scoped>
 ul {
   list-style: none;
   margin: 0;

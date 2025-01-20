@@ -17,15 +17,23 @@ export default {
   components: {
     RequestItem
   },
+  created() {
+    this.loadRequests();
+  },
   computed: {
     requests() {
       return this.$store.getters['requests/requests'];
     },
     hasRequests() {
       return this.$store.getters['requests/hasRequests'];
+    },
+  },
+  methods: {
+     async loadRequests() {
+      await this.$store.dispatch('requests/loadRequests');
     }
 
-  }
+  },
 }
 
 
